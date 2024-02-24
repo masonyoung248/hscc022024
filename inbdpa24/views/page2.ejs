@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>   This is a title <%= title %> and the title ends here </title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <%- include('./partials/head') -%> <!-- Including head partial -->
   </head>
   <body>
+    <%- include('./partials/navmenu') -%>
     <h1><%= title %></h1>
     <h2> This is page 2 </h2>
     <p>Welcome to <%= title %></p>
@@ -27,6 +27,6 @@
     </form>
 
 
-
+    <%- include('./partials/footer') -%>
   </body>
 </html>
