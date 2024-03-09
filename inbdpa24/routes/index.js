@@ -3,9 +3,5 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'BDPA Milwaukee' });
+  res.render('login', { title: 'inBDPA Login' });
 });
-
-module.exports = router;
-
-// COMMENT HERE
