@@ -107,8 +107,46 @@ router.post('/', async(req, res, next) => {
     return { keyString, saltString };
   };
   const { keyString, saltString } = await deriveKeyFromPassword(password, req.body);
+  const userdata={
+  username:req.body.username,
+  email: req.body.emailadd,
+  salt:saltString,
+  key:keyString,
+  type:'inner'
+  };
+  
 
+  //Request to post to API
+  const httpRequest = require('https');
 
+  const options = {
+    method: 'POST',
+    headers: {
+      'Authorization': 'bearer '+ process.env.BEARER_TOKEN,
+      'content-type': 'application/json'
+    },
+  };
+
+  const data=JSON.stringify(userdata);
+  //console.log(JSON.stringify(userdata));
+
+  const request = httpRequest.request('https://inbdpa.api.hscc.bdpa.org/v1/users', options, response => {
+  console.log('Status', response.statusCode);
+  console.log('Headers', response.headers);
+  let responseData = '';
+
+  response.on('data', dataChunk => {
+    responseData += dataChunk;
+  });
+  response.on('end', () => {
+    console.log('Response: ', responseData)
+  });
+});
+
+request.on('error', error => console.log('ERROR', error));
+
+request.write(data);
+request.end();
 
 
   res.render('postregister',
